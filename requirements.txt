@@ -1,0 +1,19 @@
+nltk
+tqdm
+unidecode
+numpy
+ray
+pyarrow
+pandas
+textdistance
+viet-text-tools
+rapidfuzz
+underthesea
+transformers
+accelerate
+# pickle
+torch
+termcolor
+fastapi
+uvicorn[standard]
+flask

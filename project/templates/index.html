@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>VN Spelling Correction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/d805e5e97f.js" crossorigin="anonymous"></script> 
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" /> -->
+    <style>
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        background-color: yellow;
+      }
+
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 60px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+      
+        /* Position the tooltip text - see examples below! */
+        bottom: 100%;
+        left: 50%;
+        margin-left: -30px; /* Use half of the width (120/2 = 60), to center the tooltip */
+        position: absolute;
+        z-index: 1;
+      }
+
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1 class="text-center text-xl mt-5 font-bold">Vietnamese Spelling Correction</h1>
+    <div class="flex flex-row m-10 space-x-10">
+      <form action="http://localhost:8000/spelling">
+      <div class="basis-1/2 flex flex-col border-2 p-2 rounded-md">
+        <p class="m-2">Nhập văn bản</p>
+        <textarea name = "text" maxlength="500" rows="13" cols="50" placeholder="Bắt đầu nhập tại đây" class="resize-none outline-none m-2"></textarea>
+        <button type="submit" class="bg-[#178ce3] rounded-lg py-2 text-white">
+          <i class="fa-brands fa-searchengin text-2xl"></i>
+          <span class="text-xl ml-2">Phân tích</span>
+        </button>
+      </div>
+      </form>
+      <div class="basis-1/2 flex flex-col border-2 rounded-md">
+        <div class="basis-10 bg-slate-200 p-2 pl-5">
+          <i class="fa-brands fa-searchengin text-2xl"></i>
+          <span class="ml-2 text-xl">Kết quả</span>
+        </div>
+        <div class="p-2 m-4">
+          {% if data['error'] %}
+            <span class="text-red-600">{{data['error']}}</span>
+          {% else %}
+            {% for pair in data['correction'] %}
+              {% if pair |length == 3 %}
+                <span class="tooltip">{{pair[1]}}
+                  <span class="tooltiptext">{{pair[2]}}</span>
+                </span>
+              {% else %}
+                {{pair[1]}}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script> -->
+</html>
